@@ -1,0 +1,53 @@
+### admin login
+POST http://localhost:8080/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "tel": "22345678",
+  "password": "22345678"
+}
+
+### create users: send post with json body
+POST http://localhost:8080/user/create HTTP/1.1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI3OTE4MzMsImV4cCI6MTU0Mjc5MzI3M30.Idmo9YXzrkE7BEFPmTA_3IWO1RG-w9mVUns8gDzM6Lg
+
+{
+  "tel": "15213346048",
+  "disabled": 0,
+  "name": "Yo",
+  "sex": "m",
+  "age": 29,
+  "role": null
+}
+
+### get all users' message: send get
+GET http://localhost:8080/user HTTP/1.1
+
+
+### create tower: send post with json body
+POST http://localhost:8080/tower/create HTTP/1.1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI3OTE4MzMsImV4cCI6MTU0Mjc5MzI3M30.Idmo9YXzrkE7BEFPmTA_3IWO1RG-w9mVUns8gDzM6Lg
+
+{
+  "code": "tower_3",
+  "name": "tower_bb",
+  "address": "Guangzhou Guangdong",
+  "lat": 46.50,
+  "lng": 20.0,
+  "type": "base type"
+}
+
+### get all task item
+GET http://localhost:8080/task-item HTTP/1.1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI4NTY1NTcsImV4cCI6MTU0Mjg1Nzk5N30.-hllyScs96nLBB3sYoNB19PCbzF3pWCybDbHMkuNE3U
+
+### create task item
+POST http://localhost:8080/task-item/create HTTP/1.1
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI4NTY1NTcsImV4cCI6MTU0Mjg1Nzk5N30.-hllyScs96nLBB3sYoNB19PCbzF3pWCybDbHMkuNE3U
+
+{
+  "namesArr": ["a", "拍摄空调", "bbb"]
+}

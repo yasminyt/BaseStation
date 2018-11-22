@@ -1,0 +1,21 @@
+### Login: Send POST request with json body
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "tel": "12345678",
+  "password": "12345678"
+}
+
+### response (status, value)
+### status: false    value: 'invalid user'
+### status: false    value: 'wrong password'
+### status: false    value: 'no records'
+### status: true     value: jobs （以数组的形式返回，数组元素为 object 对象）
+#[ { item_id: 1, name: '拍摄电表读数' },
+#  { item_id: 2, name: '拍摄电表输入' },
+#  { item_id: 3, name: '拍摄电表输出' },
+#  { item_id: 4, name: '拍摄防雷' },
+#  { item_id: 5, name: '拍摄空调' } ]
+
+POST http://localhost:8080/
