@@ -29,7 +29,7 @@ const create = (user, callback) => {
   const encodedPwd = base64.encode(user.password)
   const sql = `insert into user values('${user.tel}', '${encodedPwd}', 0, ` +
               `'${user.name}', '${user.sex}', '${user.age}', ${user.role?"'manager'":null})`
-  CRUD.insert(sql, status => callback(status))
+  CRUD.insert(sql, callback)
 }
 
 /**
@@ -54,7 +54,7 @@ const getUser = (tel, callback) => {
  */
 const getAll = callback => {
   const sql = 'select tel, disabled, name, sex, age from user where role is null'
-  CRUD.getAll(sql, rows => callback(rows))
+  CRUD.getAll(sql, callback)
 }
 
 /**
@@ -64,7 +64,7 @@ const getAll = callback => {
  */
 const remove = (telArr, callback) => {
   const sql = `delete from user where tel in ${telArr}`
-  CRUD.delete(sql, status => callback(status))
+  CRUD.delete(sql, callback)
 }
 
 const userModel = {

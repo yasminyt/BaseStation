@@ -22,7 +22,7 @@ class Shot {
 const insert = (shot, callback) => {
   const sql = `insert into shot values(null, '${shot.photoPath}', '${shot.createdTime}', ` +
               `'${shot.output}', ${shot.taskId})`
-  CRUD.insert(sql, callback(lastId))
+  CRUD.insert(sql, callback)
 }
 
 const shotModel = {

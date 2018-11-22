@@ -3,7 +3,6 @@ import { create, getAll } from '../controllers/taskItemCtrl'
 const createTaskItems = (req, res) => {
   // 可能是批量添加，也可能只有一条记录，但都是以数组的形式提交
   const { namesArr } = req.body
-  console.log(namesArr)
   create(namesArr, errCreate => {
     res.send(errCreate)
   })

@@ -6,7 +6,7 @@ import { towerModel } from '../models/tower'
  * @param {function} callback 
  */
 const createTower = (tower, callback) => {
-  towerModel.create(tower, status => callback(status))
+  towerModel.create(tower, callback)
 }
 
 export { createTower }

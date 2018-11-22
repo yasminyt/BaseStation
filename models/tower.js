@@ -26,7 +26,7 @@ const create = (tower, callback) => {
   const towerType = tower.type ? (`'${tower.type}'`) : null
   const sql = `insert into tower values('${tower.code}', '${tower.name}', ` +
               `'${tower.address}', ${tower.lat}, ${tower.lng}, ${towerType})`
-  CRUD.insert(sql, status => callback(status))
+  CRUD.insert(sql, callback)
 }
 
 const towerModel = {

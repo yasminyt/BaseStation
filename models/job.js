@@ -27,7 +27,10 @@ class Job {
 const create = (job, callback) => {
   const sql = `insert into job (created_user, created_time, inspection_date, user_id, tower_code) values` +
               `('${job.createdUser}', '${job.createdTime}', '${job.inspectionDate}', '${job.userId}', '${job.towerCode}')`
-  CRUD.insert(sql, status => callback(status))
+  if (callback)
+    CRUD.insert(sql, callback)
+  else
+    return CRUD.insertSync(sql)
 }
 
 /**
@@ -39,7 +42,7 @@ const getUserJobs = (userId, callback) => {
   const sql = 'select job_id jobId, tower_code towerCode, tower.name towerName from job join tower ' +
               `where user_id='${userId}' and inspection_date='${currentDay()}' ` +
               'and completed=0 and job.tower_code=tower.code'
-  CRUD.getAll(sql, rows => callback(rows))
+  CRUD.getAll(sql, callback)
 }
 
 /**
@@ -51,7 +54,10 @@ const getUserJobs = (userId, callback) => {
  */
 const queryJob = (userId, towerCode, inspectionDate, callback) => {
   const sql = `select * from job where user_id='${userId}' and tower_code='${towerCode}' and inspection_date='${inspectionDate}'`
-  CRUD.get(sql, row => callback(row))
+  if (callback)
+    CRUD.get(sql, callback)
+  else
+    return CRUD.getSync(sql)
 }
 
 

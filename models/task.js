@@ -31,7 +31,7 @@ const addTask = (task, callback) => {
               `'${task.lat}', '${task.lng}', ${task.jobId}, ${task.itemId})`
   
   // because the task_id is auto increment, it's value is the same as the lastId
-  CRUD.insert(sql, lastId => callback(lastId))
+  CRUD.insert(sql, callback)
 }
 
 const taskModel = {

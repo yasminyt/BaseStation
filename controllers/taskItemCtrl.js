@@ -1,19 +1,14 @@
 import { taskItemModel } from '../models/taskItem'
 
 const create = (namesArr, callback) => {
-  let i = 0
   let errCreate = []
-  do {
-    let name = namesArr[i]
-    // 先查询是否已存在该记录
-    taskItemModel.getByName(name, data => {
-      if (data) 
-        errCreate.push(name)
-      else 
-        taskItemModel.create(name)
-      i++
-    })
-  } while(i < namesArr.length)
+  namesArr.forEach(name => {
+    let data = taskItemModel.getByNameSync(name)
+    if (data)
+      errCreate.push(name)
+    else
+      taskItemModel.createSync(name)
+  })
   callback(errCreate)
 }
 

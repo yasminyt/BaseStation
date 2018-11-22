@@ -13,20 +13,18 @@ const addJobs = (datas, createdUser, callback) => {
   const createdTime = currentDateAndTime()
   
   let insertErr = [], deadlineErr = []
-  for (let i = 1; i < datas.length; i++) {
-    const rowData = datas[i]
-    if (rowData.length) 
-      if (checkDate(rowData[2])) {
-        let job = new Job(null, createdUser, createdTime, rowData[2], null, null, rowData[1], rowData[0])
-        if (!ifExists(job)) 
-          jobModel.create(job)
-        else
-          insertErr.push(rowData)
-      } else
-        deadlineErr.push(rowData)
-    else
-      break
-  }
+  // todo 整个循环都要修改，因为这里有异步的操作，所以整个程序的执行顺序不是按顺序的！！！
+  datas.forEach(item => {
+    if (checkDate(item[2])) {
+      let job = new Job(null, createdUser, createdTime, item[2], null, null, item[1], item[0])
+      if (!ifExists(job))
+        jobModel.create(job)
+      else
+        insertErr.push(item)
+    } else
+      deadlineErr.push(item)
+  })
+
   callback(insertErr, deadlineErr)
 }
 
@@ -46,10 +44,7 @@ function checkDate(inspectionDate) {
  * @param {object} job 
  */
 function ifExists(job) {
-  jobModel.queryJob(job.userId, job.towerCode, job.inspectionDate, row => {
-    if (row) return true
-    return false
-  })
+  return jobModel.queryJob(job.userId, job.towerCode, job.inspectionDate)
 }
 
 

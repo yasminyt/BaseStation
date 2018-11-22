@@ -6,14 +6,14 @@ import { addJobs } from '../controllers/jobCtrl';
 
 const saveFile = (req, res, next) => {
   form.parse(req, (err, fields, files) => {
+    // fields 普通表单数据
+    // files 文件数据
     if (err) {
       console.log(err)
       return
     }
     // 这里需要注意的是，files.file中的这个file对应的是input元素中的name属性的值
-    const newName = renameFile(files.file.name)   
-    const newPath = form.uploadDir + newName
-    fs.renameSync(files.file.path, newPath) // 重命名文件
+    const newPath = renameFile(files.file.path, 'file', files.file.name)
     req.filePath = newPath
     next()
   })
@@ -21,7 +21,8 @@ const saveFile = (req, res, next) => {
 
 const readFile = (req, res, next) => {
   const obj = xlsx.parse(req.filePath)
-  const datas = obj[0].data    //取得excel表中第一个工作区的数据，以数组的形式返回
+  let datas = obj[0].data    //取得excel表中第一个工作区的数据，以数组的形式返回
+  datas = datas.filter(item => item.length)   // 过滤掉其中的空数组
   const createdUser = req.decoded.user
   addJobs(datas, createdUser, (insertErr, deadlineErr) => {
     const result = {

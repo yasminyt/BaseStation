@@ -2,11 +2,11 @@ import { userModel } from "../models/user";
 
 
 const createUser = (user, callback) => {
-  userModel.create(user, status => callback(status))
+  userModel.create(user, callback)
 }
 
 const getAllUser = callback => {
-  userModel.getAll(rows => callback(rows))
+  userModel.getAll(callback)
 }
 
 export { createUser, getAllUser }

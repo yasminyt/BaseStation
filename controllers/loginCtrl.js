@@ -1,9 +1,10 @@
 import base64 from 'base-64'
 import { userModel } from '../models/user'
 import { jobModel } from '../models/job'
+import { taskItemModel } from '../models/taskItem';
 
 export default function loginCtrl(tel, password, callback) {
-  verify(tel, password, (status, value) => callback(status, value))
+  verify(tel, password, callback)
 }
 
 /**
@@ -20,7 +21,12 @@ const verify = (tel, password, callback) => {
         if (user.role === 'admin')
           callback(true, 'admin')
         else
-          getJobs(tel, callback)
+          getJobs(tel, (status, value) => {
+            if (typeof value !== 'string') 
+              getTaskItems(taskItems => callback(true, {jobs: value, taskItems: taskItems}))
+            else 
+              callback(status, value)
+          })
       }
       else
         callback(false, 'wrong password')
@@ -40,3 +46,5 @@ const getJobs = (tel, callback) => {
     else  callback(true, 'no records')
   })
 }
+
+const getTaskItems = callback => taskItemModel.getAll(callback)
