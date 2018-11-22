@@ -1,1 +1,2 @@
-# cv-tower 铁塔CV
+# cv-tower
+This project just buils the backend using nodejs with express framework.
