@@ -23,54 +23,56 @@ class User {
 /**
  * Insert a new user record into the user table
  * @param {object} user 
- * @param {function} callback 
  */
-const create = (user, callback) => {
+const create = user => {
   const encodedPwd = base64.encode(user.password)
   const sql = `insert into user values('${user.tel}', '${encodedPwd}', 0, ` +
               `'${user.name}', '${user.sex}', '${user.age}', ${user.role?"'manager'":null})`
-  CRUD.insert(sql, callback)
+  return CRUD.insert(sql)
 }
 
 /**
  * Query a user's message by tel
  * @param {string} tel 
- * @param {function} callback 
  */
-const getUser = (tel, callback) => {
+const getUser = tel => {
   const sql = `select * from user where tel='${tel}'`
-  CRUD.get(sql, row => {
-    if (row) {
-      const user = new User(row.tel, row.password, row.disabled, row.name, row.sex, row.age, row.role)
-      callback(user)
-    } else 
-      callback(undefined)
-  })
+  return CRUD.get(sql)
 }
 
 /**
  * Query all users' message except the manager
- * @param {function} callback 
  */
-const getAll = callback => {
+const getAll = () => {
   const sql = 'select tel, disabled, name, sex, age from user where role is null'
-  CRUD.getAll(sql, callback)
+  return CRUD.getAll(sql)
 }
 
 /**
- * Delete one or more users' message from the table
- * @param {array} telArr 
- * @param {function} callback 
+ * Delete a user's record by tel
+ * @param {string} tel 
  */
-const remove = (telArr, callback) => {
-  const sql = `delete from user where tel in ${telArr}`
-  CRUD.delete(sql, callback)
+const remove = tel => {
+  const sql = `delete from user where tel = '${tel}'`
+  return CRUD.delete(sql)
+}
+
+/**
+ * Disable or not a user
+ * @param {string} tel 
+ * @param {number} isDisable 
+ */
+const disable = (tel, isDisable) => {
+  const sql = `update user set disabled=${isDisable} where tel='${tel}'`
+  return CRUD.update(sql)
 }
 
 const userModel = {
   create: create,
   getUser: getUser,
-  getAll: getAll
+  getAll: getAll,
+  delete: remove,
+  disable: disable
 }
 
 export { User, userModel }

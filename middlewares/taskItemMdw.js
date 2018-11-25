@@ -1,17 +1,16 @@
 import { create, getAll } from '../controllers/taskItemCtrl'
+import response from '../libs/response';
 
 const createTaskItems = (req, res) => {
   // 可能是批量添加，也可能只有一条记录，但都是以数组的形式提交
   const { namesArr } = req.body
-  create(namesArr, errCreate => {
-    res.send(errCreate)
-  })
+  const errCreate = create(namesArr)
+  res.send(errCreate)
 }
 
 const getAllItems = (req, res) => {
-  getAll(rows => {
-    res.send(rows)
-  })
+  const rows = getAll()
+  response.queryAllRes(rows, res)
 }
 
 export { createTaskItems, getAllItems }

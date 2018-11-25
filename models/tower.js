@@ -20,13 +20,12 @@ class Tower {
 /**
  * Insert a new tower record into the tower table
  * @param {object} tower 
- * @param {function} callback 
  */
-const create = (tower, callback) => {
+const create = tower => {
   const towerType = tower.type ? (`'${tower.type}'`) : null
   const sql = `insert into tower values('${tower.code}', '${tower.name}', ` +
               `'${tower.address}', ${tower.lat}, ${tower.lng}, ${towerType})`
-  CRUD.insert(sql, callback)
+  return CRUD.insert(sql)
 }
 
 const towerModel = {

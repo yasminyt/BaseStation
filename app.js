@@ -8,6 +8,7 @@ import jobRouter from './routes/jobRouter';
 import auth from './middlewares/auth';
 import taskItemRouter from './routes/taskItemRouter';
 import taskRouter from './routes/taskRouter';
+import shotRouter from './routes/shotRouter';
 
 const app = express()
 
@@ -30,6 +31,8 @@ app.use('/job', jobRouter)
 app.use('/task-item', taskItemRouter)
 // task request
 app.use('/task', taskRouter)
+// shot request
+app.use('/shot', shotRouter)
 
 
 const PORT = process.env.PORT || 8080

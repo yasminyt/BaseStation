@@ -3,8 +3,8 @@ import { userModel } from '../models/user'
 import { jobModel } from '../models/job'
 import { taskItemModel } from '../models/taskItem';
 
-export default function loginCtrl(tel, password, callback) {
-  verify(tel, password, callback)
+export default function loginCtrl(tel, password) {
+  return verify(tel, password)
 }
 
 /**
@@ -13,38 +13,36 @@ export default function loginCtrl(tel, password, callback) {
  * @param {string} password 
  * @param {function} callback 
  */
-const verify = (tel, password, callback) => {
-  userModel.getUser(tel, user => {
-    if (user) {
+const verify = (tel, password) => {
+  const user = userModel.getUser(tel)
+  if (user) {
+    // judge the user is whether disabled
+    if (user.disabled) 
+      return {status: false, value: 'disabled user'}
+    else {
       const encode = base64.encode(password)
       if (encode === user.password) {
         if (user.role === 'admin')
-          callback(true, 'admin')
-        else
-          getJobs(tel, (status, value) => {
-            if (typeof value !== 'string') 
-              getTaskItems(taskItems => callback(true, {jobs: value, taskItems: taskItems}))
-            else 
-              callback(status, value)
-          })
-      }
+          return {status: true, value: 'admin'}
+        else 
+          return getJobs(tel)
+      } 
       else
-        callback(false, 'wrong password')
-    } else
-      callback(false, 'invalid user')
-  })
+        return {status: false, value: 'wrong password'}
+    }
+  } else
+    return { status: false, value: 'invalid user'}
 }
 
 /**
  * get valid user's unfinished jobs 
  * @param {string} tel 
- * @param {function} callback 
  */
-const getJobs = (tel, callback) => {
-  jobModel.getUserJobs(tel, rows => {
-    if (rows.length) callback(true, rows)
-    else  callback(true, 'no records')
-  })
+const getJobs = tel => {
+  const jobs = jobModel.getUserJobs(tel)
+  if (jobs.length) {
+    const taskItems = taskItemModel.getAll()
+    return {status: true, value: { jobs: jobs, taskItems: taskItems }}
+  } else
+    return {status: true, value: 'no records'}
 }
-
-const getTaskItems = callback => taskItemModel.getAll(callback)

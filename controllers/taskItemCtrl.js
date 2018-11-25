@@ -1,19 +1,17 @@
 import { taskItemModel } from '../models/taskItem'
 
-const create = (namesArr, callback) => {
+const create = namesArr => {
   let errCreate = []
   namesArr.forEach(name => {
-    let data = taskItemModel.getByNameSync(name)
-    if (data.length)
+    let data = taskItemModel.getByName(name)
+    if (data)
       errCreate.push(name)
     else
-      taskItemModel.createSync(name)
+      taskItemModel.create(name)
   })
-  callback(errCreate)
+  return errCreate
 }
 
-const getAll = callback => {
-  taskItemModel.getAll(callback)
-}
+const getAll = () => taskItemModel.getAll()
 
 export { create, getAll }

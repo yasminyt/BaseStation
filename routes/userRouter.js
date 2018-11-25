@@ -1,5 +1,5 @@
 import express from 'express'
-import { create, getAll } from '../middlewares/userMdw';
+import { create, getAll, remove, disable, unlock } from '../middlewares/userMdw';
 
 const userRouter = express.Router()
 
@@ -10,6 +10,12 @@ userRouter.get('/', getAll)
 userRouter.post('/create', create)
 
 // delete a user
-userRouter.delete('/:tel', )
+userRouter.delete('/:tel', remove)
+
+// disable a user
+userRouter.put('/disable/:tel', disable)
+
+// unlock a user
+userRouter.put('/unlock/:tel', unlock)
 
 export default userRouter

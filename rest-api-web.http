@@ -1,46 +1,55 @@
-### admin login
+### admin login (passed)
 POST http://localhost:8080/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "tel": "22345678",
-  "password": "22345678"
+  "tel": "13422214258",
+  "password": "13422214258"
 }
 
-### create users: send post with json body
+### create users: send post with json body (passed)
 POST http://localhost:8080/user/create HTTP/1.1
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI5NjUwMTgsImV4cCI6MTU0Mjk2NjQ1OH0.7iVOpNK1v7J_BksbQEvWfvaqOSldVZHCBZM2FQnOcxo
 
 {
-  "tel": "13422214258",
+  "tel": "18722379017",
   "disabled": 0,
-  "name": "Lucy",
-  "sex": "f",
-  "age": 34,
+  "name": "Jane",
+  "sex": "m",
+  "age": 48,
   "role": null
 }
 
-### get all users' message: send get
+### get all users' message: send get (passed)
 GET http://localhost:8080/user HTTP/1.1
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI5NjUwMTgsImV4cCI6MTU0Mjk2NjQ1OH0.7iVOpNK1v7J_BksbQEvWfvaqOSldVZHCBZM2FQnOcxo
 
+### delete user (passed)
+DELETE http://localhost:8080/user/18722379017 HTTP/1.1
 
-### create tower: send post with json body
+### disable user (passed)
+PUT http://localhost:8080/user/disable/15213346048 HTTP/1.1
+
+### unlock user (passed)
+PUT http://localhost:8080/user/unlock/15213346048 HTTP/1.1
+
+
+### create tower: send post with json body (passed)
 POST http://localhost:8080/tower/create HTTP/1.1
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI5NjUwMTgsImV4cCI6MTU0Mjk2NjQ1OH0.7iVOpNK1v7J_BksbQEvWfvaqOSldVZHCBZM2FQnOcxo
 
 {
-  "code": "towerA_1",
-  "name": "towerA",
+  "code": "towerB_1",
+  "name": "towerB",
   "address": "Guangzhou Guangdong",
-  "lat": 46.50,
-  "lng": 20.0,
+  "lat": 27.40,
+  "lng": 144,
   "type": "base type"
 }
 
-### create task items
+### create task items (passed)
 POST http://localhost:8080/task-item/create HTTP/1.1
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI5NjUwMTgsImV4cCI6MTU0Mjk2NjQ1OH0.7iVOpNK1v7J_BksbQEvWfvaqOSldVZHCBZM2FQnOcxo
@@ -49,14 +58,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJy
   "namesArr": ["拍摄电表读数", "拍摄电表输入"]
 }
 
-### get all task item
+### get all task item (passed)
 GET http://localhost:8080/task-item HTTP/1.1
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDI5NjU1MjAsImV4cCI6MTU0Mjk2Njk2MH0.5MR9emBr0SXsNiw2_3feEU2o-RBTHUEwKHB0zRQpA5E
 
-### upload excel file about job massage
+
+### upload excel file about job massage (passed)
 POST http://localhost:8080/job/upload HTTP/1.1
 Content-Type: multipart/form-data; boundary=------------WebAppBoundary201811
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMjIzNDU2NzgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NDMxMTMwODIsImV4cCI6MTU0MzExNDUyMn0.tDS9h5BmhSKXnuN69ePgz7fwJMRMfq0SVjKtOnWfRqU
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiMTM0MjIyMTQyNTgiLCJyb2xlIjoidXNlciIsImlhdCI6MTU0MzE1Mzg0MSwiZXhwIjoxNTQzMTU1MjgxfQ.Jx1CX0B1qukMXd5u1Z1AQEBfAPC0FlGZt8xOcXkYSX4
 
 --------------WebAppBoundary201811
 Content-Disposition: form-data; name="jobFile"; filename="巡检任务表.xlsx"
@@ -67,3 +77,4 @@ Content-Transfer-Encoding: binary
 --------------WebAppBoundary201811
 
 ###
+GET http://localhost:8080/shot HTTP/1.1

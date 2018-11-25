@@ -10,8 +10,8 @@ const createTask = (tasks, jobId) => {
   for (let taskItemId in tasks) {
     let tmp = tasks[taskItemId]
     let task = new Task(1, tmp.abnormal, tmp.output, tmp.completedTime, tmp.lat, tmp.lng, jobId, taskItemId)
-    const taskId = taskModel.addTask(task)
-    tmp.shot.taskId = taskId
+    const result = taskModel.addTask(task)
+    tmp.shot.taskId = result.lastInsertROWID
     shotArr.push(tmp.shot)
   }
   return shotArr

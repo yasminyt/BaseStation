@@ -25,13 +25,8 @@ const readFile = (req, res, next) => {
   datas = datas.filter(item => item.length)   // 过滤掉其中的空数组
   datas.splice(0, 1)  // 去掉行首
   const createdUser = req.decoded.user
-  addJobs(datas, createdUser, (insertErr, deadlineErr) => {
-    const result = {
-      insertErr: insertErr,
-      deadlineErr: deadlineErr
-    }
-    res.json(result)  // 返回一个json数据给前端，包括了重复的数据以及过期的数据
-  })
+  const result = addJobs(datas, createdUser)
+  res.send(result)  // 返回一个json数据给前端，包括了重复的数据以及过期的数据
 }
 
 export { saveFile, readFile }

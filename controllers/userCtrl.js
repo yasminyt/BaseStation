@@ -1,12 +1,14 @@
 import { userModel } from "../models/user";
 
 
-const createUser = (user, callback) => {
-  userModel.create(user, callback)
-}
+const createUser = user => userModel.create(user)
 
-const getAllUser = callback => {
-  userModel.getAll(callback)
-}
+const getAllUser = () => userModel.getAll()
 
-export { createUser, getAllUser }
+const deleteUser = tel => userModel.delete(tel)
+
+const disableUser = tel => userModel.disable(tel, 1)
+
+const unlockUser = tel => userModel.disable(tel, 0)
+
+export { createUser, getAllUser, deleteUser, disableUser, unlockUser }

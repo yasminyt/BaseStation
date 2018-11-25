@@ -11,8 +11,11 @@
   "license": "ISC",
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
+    "babel-register": "^6.26.0"
+  },
+  "dependencies": {
     "base-64": "^0.1.0",
+    "better-sqlite3": "^5.0.1",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "formidable": "^1.2.1",

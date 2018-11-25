@@ -13,34 +13,32 @@ class TaskItem {
  * Create a new task item record with name
  * @param {string} name 
  */
-const createSync = name => {
+const create = name => {
   const sql = `insert into task_item (name) values('${name}')`
-  CRUD.insertSync(sql)
+  return CRUD.insert(sql)
 }
 
 /**
  * Get all task items' records
- * @param {function} callback 
  */
-const getAll = callback => {
+const getAll = () => {
   const sql = 'select * from task_item'
-  CRUD.getAll(sql, callback)
+  return CRUD.getAll(sql)
 }
 
 /**
  * Query a task item record by name
  * @param {string} name 
- * @param {function} callback 
  */
-const getByNameSync = name => {
+const getByName = name => {
   const sql = `select * from task_item where name='${name}'`
-  return CRUD.getSync(sql)
+  return CRUD.get(sql)
 }
 
 const taskItemModel = {
-  createSync: createSync,
+  create: create,
   getAll: getAll,
-  getByNameSync: getByNameSync
+  getByName: getByName
 }
 
 export { TaskItem, taskItemModel }

@@ -22,27 +22,22 @@ class Job {
 /**
  * insert a new job record into table
  * @param {object} job 
- * @param {function} callback 
  */
-const create = (job, callback) => {
+const create = job => {
   const sql = `insert into job (created_user, created_time, inspection_date, user_id, tower_code) values` +
               `('${job.createdUser}', '${job.createdTime}', '${job.inspectionDate}', '${job.userId}', '${job.towerCode}')`
-  if (callback)
-    CRUD.insert(sql, callback)
-  else
-    return CRUD.insertSync(sql)
+  return CRUD.insert(sql)
 }
 
 /**
  * get a user's current jobs that aren't completed by user_id
  * @param {string} userId 
- * @param {function} callback 
  */
-const getUserJobs = (userId, callback) => {
+const getUserJobs = userId => {
   const sql = 'select job_id jobId, tower_code towerCode, tower.name towerName from job join tower ' +
               `where user_id='${userId}' and inspection_date='${currentDay()}' ` +
               'and completed=0 and job.tower_code=tower.code'
-  CRUD.getAll(sql, callback)
+  return CRUD.getAll(sql)
 }
 
 /**
@@ -50,14 +45,10 @@ const getUserJobs = (userId, callback) => {
  * @param {string} userId 
  * @param {string} towerCode 
  * @param {string} inspectionDate 
- * @param {function} callback 
  */
-const queryJob = (userId, towerCode, inspectionDate, callback) => {
+const queryJob = (userId, towerCode, inspectionDate) => {
   const sql = `select * from job where user_id='${userId}' and tower_code='${towerCode}' and inspection_date='${inspectionDate}'`
-  if (callback)
-    CRUD.get(sql, callback)
-  else
-    return CRUD.getSync(sql)
+  return CRUD.get(sql)
 }
 
 

@@ -7,24 +7,26 @@ const createdDate = currentDay()
 /**
  * Add the jobs from the excel into the job table
  * @param {array} datas 
- * @param {function} callback 
  */
-const addJobs = (datas, createdUser, callback) => {
+const addJobs = (datas, createdUser) => {
   const createdTime = currentDateAndTime()
   
-  let insertErr = [], deadlineErr = []
+  let repeatErr = [], insertErr = [], deadlineErr = []
   datas.forEach(item => {
     if (checkDate(item[2])) {
       let job = new Job(null, createdUser, createdTime, item[2], null, null, item[1], item[0])
-      if (!ifExists(job))
-        jobModel.create(job)
+      if (!ifExists(job)) {
+        let result = jobModel.create(job)
+        if (!result)
+          insertErr.push(item)
+      }
       else
-        insertErr.push(item)
+        repeatErr.push(item)
     } else
       deadlineErr.push(item)
   })
 
-  callback(insertErr, deadlineErr)
+  return {repeatErr, insertErr, deadlineErr}
 }
 
 /**
@@ -44,9 +46,7 @@ function checkDate(inspectionDate) {
  */
 function ifExists(job) {
   const row = jobModel.queryJob(job.userId, job.towerCode, job.inspectionDate)
-  if (row.length)
-    return true
-  return false
+  return (row ? true : false)
 }
 
 
