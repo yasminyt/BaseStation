@@ -1,10 +1,10 @@
 import xlsx from 'node-xlsx'
-import fs from 'fs'
-import form from '../configs/fileConfig'
-import { renameFile } from '../libs/util';
-import { addJobs } from '../controllers/jobCtrl';
+import { renameFile } from '../libs/util'
+import { addJobs } from '../controllers/jobCtrl'
+import newForm from '../configs/fileConfig'
 
 const saveFile = (req, res, next) => {
+  const form = newForm()
   form.parse(req, (err, fields, files) => {
     // fields 普通表单数据
     // files 文件数据
@@ -13,7 +13,7 @@ const saveFile = (req, res, next) => {
       return
     }
     // 这里需要注意的是，files.file中的这个file对应的是input元素中的name属性的值
-    const newPath = renameFile(files.file.path, 'file', files.file.name)
+    const newPath = renameFile(files.jobFile.path, 'file', files.jobFile.name)
     req.filePath = newPath
     next()
   })
@@ -23,6 +23,7 @@ const readFile = (req, res, next) => {
   const obj = xlsx.parse(req.filePath)
   let datas = obj[0].data    //取得excel表中第一个工作区的数据，以数组的形式返回
   datas = datas.filter(item => item.length)   // 过滤掉其中的空数组
+  datas.splice(0, 1)  // 去掉行首
   const createdUser = req.decoded.user
   addJobs(datas, createdUser, (insertErr, deadlineErr) => {
     const result = {

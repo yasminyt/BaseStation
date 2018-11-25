@@ -19,14 +19,17 @@ class Shot {
  * @param {object} shot 
  * @param {function} callback 
  */
-const insert = (shot, callback) => {
+const create = (shot, callback) => {
   const sql = `insert into shot values(null, '${shot.photoPath}', '${shot.createdTime}', ` +
               `'${shot.output}', ${shot.taskId})`
-  CRUD.insert(sql, callback)
+  if (callback)
+    CRUD.insert(sql, callback)
+  else
+    return CRUD.insertSync(sql)
 }
 
 const shotModel = {
-  insert: insert
+  create: create
 }
 
 export { Shot, shotModel }

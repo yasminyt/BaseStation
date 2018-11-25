@@ -1,5 +1,4 @@
 import fs from 'fs'
-import form from "../configs/fileConfig";
 
 const currentDay = () => {
   const time = new Date()
@@ -8,7 +7,8 @@ const currentDay = () => {
 
 const currentDateAndTime = () => {
   const time = new Date()
-  return `${time.getFullYear()}/${time.getMonth() + 1}/${time.getDate()} ${time.getHours()}:${time.getMinutes()}`
+  return `${time.getFullYear()}/${time.getMonth() + 1}/${time.getDate()} ` +
+         `${time.getHours()}:${(time.getMinutes() < 10) ? '0' : '' + time.getMinutes()}`
 }
 
 const getTime = date => {
@@ -28,7 +28,7 @@ const renameFile = (tempPath, folder, fileName) => {
   const arr = fileName.split('.')
   arr[arr.length - 2] += `_${add}`
   const newName = arr.join('.')
-  const newPath = `${form.uploadDir}/${folder}/${newName}`
+  const newPath = `./public/${folder}/${newName}`
   fs.renameSync(tempPath, newPath)
   return newPath
 }

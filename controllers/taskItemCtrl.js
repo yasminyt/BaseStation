@@ -4,7 +4,7 @@ const create = (namesArr, callback) => {
   let errCreate = []
   namesArr.forEach(name => {
     let data = taskItemModel.getByNameSync(name)
-    if (data)
+    if (data.length)
       errCreate.push(name)
     else
       taskItemModel.createSync(name)

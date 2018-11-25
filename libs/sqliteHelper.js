@@ -4,6 +4,17 @@ import sqliteSync from 'sqlite-sync'
 const db = new sqlite3.Database('./test.db')
 sqliteSync.connect('./test.db')
 
+// db.run('PRAGMA foreign_keys = ON', function (err) {
+//   console.log(err)
+//   console.log('db2')
+// })
+
+// sqliteSync.run('PRAGMA foreign_keys = ON', function(err) {
+//   console.log(err)
+//   console.log('sqlitesync2')
+// })
+
+
 /**
  * create new record
  * @param {string} sql 

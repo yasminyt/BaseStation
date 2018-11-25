@@ -7,6 +7,7 @@ import towerRouter from './routes/towerRouter';
 import jobRouter from './routes/jobRouter';
 import auth from './middlewares/auth';
 import taskItemRouter from './routes/taskItemRouter';
+import taskRouter from './routes/taskRouter';
 
 const app = express()
 
@@ -27,6 +28,9 @@ app.use('/tower', towerRouter)
 app.use('/job', jobRouter)
 // task item request
 app.use('/task-item', taskItemRouter)
+// task request
+app.use('/task', taskRouter)
+
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {

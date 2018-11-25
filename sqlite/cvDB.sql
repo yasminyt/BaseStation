@@ -32,6 +32,7 @@ create table job (
     abnormal         integer  not null  default 0,
     user_id          text,
     tower_code       text,
+    foreign key(created_user) references user(tel),
     foreign key(user_id) references user(tel),
     foreign key(tower_code) references tower(code)
 );

@@ -13,7 +13,6 @@ const addJobs = (datas, createdUser, callback) => {
   const createdTime = currentDateAndTime()
   
   let insertErr = [], deadlineErr = []
-  // todo 整个循环都要修改，因为这里有异步的操作，所以整个程序的执行顺序不是按顺序的！！！
   datas.forEach(item => {
     if (checkDate(item[2])) {
       let job = new Job(null, createdUser, createdTime, item[2], null, null, item[1], item[0])
@@ -44,7 +43,10 @@ function checkDate(inspectionDate) {
  * @param {object} job 
  */
 function ifExists(job) {
-  return jobModel.queryJob(job.userId, job.towerCode, job.inspectionDate)
+  const row = jobModel.queryJob(job.userId, job.towerCode, job.inspectionDate)
+  if (row.length)
+    return true
+  return false
 }
 
 

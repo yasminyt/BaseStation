@@ -27,11 +27,14 @@ class Task {
  * @param {function} callback 
  */
 const addTask = (task, callback) => {
-  const sql = `insert into task values(null, 1, ${task.abnormal}, '${task.output}', '${task.completedTime}', `+
-              `'${task.lat}', '${task.lng}', ${task.jobId}, ${task.itemId})`
+  const sql = `insert into task values(null, ${task.completed}, ${task.abnormal}, '${task.output}', `+
+              `'${task.completedTime}', '${task.lat}', '${task.lng}', ${task.jobId}, ${task.itemId})`
   
   // because the task_id is auto increment, it's value is the same as the lastId
-  CRUD.insert(sql, callback)
+  if (callback)
+    CRUD.insert(sql, callback)
+  else
+    return CRUD.insertSync(sql)
 }
 
 const taskModel = {
