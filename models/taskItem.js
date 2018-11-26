@@ -35,10 +35,19 @@ const getByName = name => {
   return CRUD.get(sql)
 }
 
+/**
+ * count all task item records
+ */
+const countAll = () => {
+  const sql = 'select count(item_id) as taskItemNums from task_item'
+  return CRUD.count(sql)['taskItemNums']
+}
+
 const taskItemModel = {
-  create: create,
-  getAll: getAll,
-  getByName: getByName
+  create,
+  getAll,
+  getByName,
+  countAll
 }
 
 export { TaskItem, taskItemModel }

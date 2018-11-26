@@ -1,7 +1,8 @@
 import newForm from '../configs/fileConfig'
 import { renameShot } from '../controllers/shotCtrl'
-import { createTask } from '../controllers/taskCtrl'
+import { createTask, queryDetailTask } from '../controllers/taskCtrl'
 import { createShot } from '../controllers/shotCtrl'
+import { updateJobStatus } from '../controllers/jobCtrl';
 
 const uploadTask = (req, res, next) => {
   const form = newForm()
@@ -11,12 +12,20 @@ const uploadTask = (req, res, next) => {
     // rename pngs
     const newPath = renameShot(files)
     // save task
-    const shotArr = createTask(tasks, jobId)
+    const { shotArr, abnormal} = createTask(tasks, jobId)
     // save shot
     createShot(shotArr, newPath)
+    // modify the job completed value
+    updateJobStatus(jobId, shotArr.length, abnormal)
 
     res.json({ status: 'success'})
   })
 }
 
-export { uploadTask }
+const getDetailTask = (req, res) => {
+  const { jobId } = req.params
+  const result = queryDetailTask(jobId)
+  res.send(result)
+}
+
+export { uploadTask, getDetailTask }

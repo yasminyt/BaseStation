@@ -1,6 +1,6 @@
 import xlsx from 'node-xlsx'
 import { renameFile } from '../libs/util'
-import { addJobs } from '../controllers/jobCtrl'
+import { addJobs, doCombinedQuery } from '../controllers/jobCtrl'
 import newForm from '../configs/fileConfig'
 
 const saveFile = (req, res, next) => {
@@ -29,7 +29,14 @@ const readFile = (req, res, next) => {
   res.send(result)  // 返回一个json数据给前端，包括了重复的数据以及过期的数据
 }
 
-export { saveFile, readFile }
+const combinedQuery = (req, res) => {
+  const { userId, towerCode, inspectionDate, status } = req.body
+  const { completed, abnormal } = status
+  const result = doCombinedQuery(userId, towerCode, inspectionDate, completed, abnormal)
+  res.send(result)
+}
+
+export { saveFile, readFile, combinedQuery }
 
 /** 以下为经过 xlsx.parse() 后的excel表中第一个工作区的数据样例 */
 /**

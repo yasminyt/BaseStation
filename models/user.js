@@ -68,11 +68,11 @@ const disable = (tel, isDisable) => {
 }
 
 const userModel = {
-  create: create,
-  getUser: getUser,
-  getAll: getAll,
+  create,
+  getUser,
+  getAll,
   delete: remove,
-  disable: disable
+  disable
 }
 
 export { User, userModel }

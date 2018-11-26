@@ -29,7 +29,7 @@ const create = tower => {
 }
 
 const towerModel = {
-  create: create
+  create
 }
 
 export { Tower, towerModel }

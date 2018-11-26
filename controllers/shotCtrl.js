@@ -20,10 +20,11 @@ const renameShot = shots => {
  * @param {array} pathArr 
  */
 const createShot = (shotArr, pathArr) => {
+  const db = shotModel.prepareInsert()
   for (let i = 0; i < shotArr.length; i++) {
     let tmp = shotArr[i]
     let shot = new Shot(pathArr[i], tmp.createdTime, tmp.output, tmp.taskId)
-    shotModel.create(shot)
+    shotModel.runInsert(db, shot)
   }
 }
 

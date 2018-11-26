@@ -30,6 +30,7 @@ create table job (
     inspection_date  text     not null,
     completed        integer  not null  default 0,
     abnormal         integer  not null  default 0,
+    process          text,
     user_id          text,
     tower_code       text,
     foreign key(created_user) references user(tel),
@@ -70,6 +71,15 @@ create table task_item (
     item_id     integer primary key autoincrement,
     name        text    not null
 );
+
+/** create view about abnormal tasks **/
+drop view if exists abnormalView;
+create view abnormalView as
+    select task_id taskId, user.tel userId, user.name userName, tower.code towerId, tower.name towerName, 
+           task_item.item_id itemId, task_item.name itemName, inspection_date inspectionDate, output 
+    from task, job, task_item, user, tower 
+    where task.abnormal=1 and task.job_id=job.job_id and task.item_id=task_item.item_id and  
+          job.user_id=user.tel and job.tower_code=tower.code;
 
 /** insert manager's record in user table **/
 

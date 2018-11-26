@@ -28,6 +28,8 @@ const insert = sql => dbRun(sql)
 const remove = sql => dbRun(sql)
 /** update records */
 const update = sql => dbRun(sql)
+/** count records */
+const count = sql => db.prepare(sql).get()
 
 /**
  * .run()
@@ -53,11 +55,12 @@ const readSqlFile = () => {
 }
 
 const CRUD = {
-  insert: insert,
-  get: get,
-  getAll: getAll,
+  insert,
+  get,
+  getAll,
   delete: remove,
-  update: update
+  update,
+  count
 }
 
 export { db, CRUD }

@@ -1,4 +1,4 @@
-import { CRUD } from '../libs/sqliteHelper'
+import { CRUD, db } from '../libs/sqliteHelper'
 
 class Shot {
   constructor(photoPath, createdTime, output, taskId) {
@@ -25,8 +25,17 @@ const create = shot => {
   return CRUD.insert(sql)
 }
 
+const prepareInsert = () => {
+  const sql = 'insert into shot values(null, ?, ?, ?, ?)'
+  return db.prepare(sql)
+}
+
+const runInsert = (db, shot) => db.run(shot.photoPath, shot.createdTime, shot.output, shot.taskId)
+
 const shotModel = {
-  create: create
+  create,
+  prepareInsert,
+  runInsert
 }
 
 export { Shot, shotModel }
