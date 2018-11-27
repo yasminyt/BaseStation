@@ -1,8 +1,14 @@
-import { Shot, shotModel } from '../models/shot'
+import { getShotMsg } from '../controllers/shotCtrl';
 
-const getShot = (req, res) => {
-  const { taskId } = req.body
-  // todo
+const queryShotMsg = (req, res) => {
+  const { taskId } = req.params
+  const data = getShotMsg(taskId)
+  res.send(data)
 }
 
-export { getShot }
+const getImg = (req, res) => {
+  const { imgName } = req.params
+  res.sendFile(`${__dirname}/public/img/${imgName}`)
+}
+
+export { queryShotMsg, getImg }

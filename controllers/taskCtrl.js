@@ -36,4 +36,13 @@ const queryDetailTask = jobId => {
   return {completedData: datas, uncompletedData: itemNames}
 }
 
-export { createTask, queryDetailTask }
+const queryAbnormalTask = (startDate, endDate, userId, towerId, itemId) => {
+  const regex = /-/g
+  if (startDate)
+    startDate.replace(regex, '/')
+  if (endDate)
+    endDate.replace(regex, '/')
+  return taskModel.getAbnormalTask(startDate, endDate, userId, towerId, itemId)
+}
+
+export { createTask, queryDetailTask, queryAbnormalTask }

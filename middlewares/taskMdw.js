@@ -1,6 +1,6 @@
 import newForm from '../configs/fileConfig'
 import { renameShot } from '../controllers/shotCtrl'
-import { createTask, queryDetailTask } from '../controllers/taskCtrl'
+import { createTask, queryDetailTask, queryAbnormalTask } from '../controllers/taskCtrl'
 import { createShot } from '../controllers/shotCtrl'
 import { updateJobStatus } from '../controllers/jobCtrl';
 
@@ -24,8 +24,14 @@ const uploadTask = (req, res, next) => {
 
 const getDetailTask = (req, res) => {
   const { jobId } = req.params
-  const result = queryDetailTask(jobId)
-  res.send(result)
+  const datas = queryDetailTask(jobId)
+  res.send(datas)
 }
 
-export { uploadTask, getDetailTask }
+const getAbnormalTask = (req, res) => {
+  const { startDate, endDate, userId, towerId, itemId } = req.body
+  const datas = queryAbnormalTask(startDate, endDate, userId, towerId, itemId)
+  res.send(datas)
+}
+
+export { uploadTask, getDetailTask, getAbnormalTask }

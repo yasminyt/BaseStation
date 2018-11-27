@@ -6,6 +6,6 @@ const jobRouter = express.Router()
 /** upload job excel file */
 jobRouter.post('/upload', saveFile, readFile)
 /** combined query job records */
-jobRouter.post('/combinedQuery', combinedQuery)
+jobRouter.get('/combinedQuery', combinedQuery)
 
 export default jobRouter

@@ -1,12 +1,14 @@
 import { CRUD, db } from '../libs/sqliteHelper'
 
 class Shot {
-  constructor(photoPath, createdTime, output, taskId) {
+  constructor(shotId, photoPath, createdTime, output, taskId) {
+    this._shotId = shotId
     this._photoPath = photoPath
     this._createdTime = createdTime
     this._output = output
     this._taskId = taskId
   }
+  get shotId() { return this._shotId }
   get photoPath() { return this._photoPath }
   get createdTime() { return this._createdTime }
   get output() { return this._output }
@@ -32,10 +34,16 @@ const prepareInsert = () => {
 
 const runInsert = (db, shot) => db.run(shot.photoPath, shot.createdTime, shot.output, shot.taskId)
 
+const getShot = taskId => {
+  const sql = `select * from shot where task_id=${taskId}`
+  return CRUD.get(sql)
+}
+
 const shotModel = {
   create,
   prepareInsert,
-  runInsert
+  runInsert,
+  getShot
 }
 
 export { Shot, shotModel }

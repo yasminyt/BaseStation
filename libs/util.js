@@ -30,7 +30,7 @@ const renameFile = (tempPath, folder, fileName) => {
   const newName = arr.join('.')
   const newPath = `./public/${folder}/${newName}`
   fs.renameSync(tempPath, newPath)
-  return newPath
+  return newName
 }
 
 export { currentDay, currentDateAndTime, getTime, renameFile }
